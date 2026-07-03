@@ -1,0 +1,124 @@
+/* ============================================================
+   NexusResearch -- Visualization Styles
+   Canvas overlays, topology, heatmap grid
+   ============================================================ */
+
+/* ---- Topology Container ---- */
+.topology {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.topology__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.topology__tooltip {
+  position: absolute;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-size: var(--text-xs);
+  color: var(--color-text-primary);
+  pointer-events: none;
+  z-index: var(--z-tooltip);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+  max-width: 200px;
+  white-space: nowrap;
+}
+
+.topology__tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.topology__tooltip-name {
+  font-weight: var(--weight-semibold);
+  margin-bottom: 2px;
+}
+
+.topology__tooltip-role {
+  color: var(--color-text-muted);
+}
+
+.topology__tooltip-status {
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+/* ---- Heatmap ---- */
+.heatmap {
+  padding: var(--space-3);
+  overflow-y: auto;
+  height: 100%;
+}
+
+.heatmap__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.heatmap__title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.heatmap__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.heatmap__legend-bar {
+  width: 80px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #3f3f46, #a1a1aa, #ffffff);
+}
+
+.heatmap__legend-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+}
+
+/* ---- Empty states ---- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--space-8);
+  text-align: center;
+  gap: var(--space-3);
+}
+
+.empty-state__icon {
+  width: 40px;
+  height: 40px;
+  opacity: 0.2;
+  fill: var(--color-text-muted);
+}
+
+.empty-state__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 220px;
+}

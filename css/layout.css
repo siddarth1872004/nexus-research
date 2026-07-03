@@ -1,0 +1,349 @@
+/* ============================================================
+   NexusResearch -- Layout System
+   Mission Control grid with named areas
+   ============================================================ */
+
+/* ---- App Shell ---- */
+.app {
+  display: grid;
+  grid-template-rows: var(--header-height) var(--progress-height) 1fr;
+  grid-template-areas:
+    "header"
+    "progress"
+    "main";
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ---- Header ---- */
+.header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-default);
+  z-index: var(--z-sticky);
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.header__logo {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
+}
+
+.header__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---- Progress Strip ---- */
+.progress-strip {
+  grid-area: progress;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-6);
+  gap: var(--space-2);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* ---- Main Content ---- */
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "topology agents"
+    "feed     report";
+  gap: var(--panel-gap);
+  padding: var(--panel-gap);
+  overflow: hidden;
+  background: var(--color-bg-primary);
+}
+
+/* ---- Panels ---- */
+.panel {
+  position: relative;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.panel:hover {
+  border-color: var(--color-border-strong);
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+  background: var(--color-bg-tertiary);
+}
+
+.panel__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.panel__badge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  padding: 2px var(--space-2);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.panel__body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: var(--color-bg-secondary);
+}
+
+.panel--topology  { grid-area: topology; }
+.panel--agents    { grid-area: agents; }
+.panel--feed      { grid-area: feed; }
+.panel--report    { grid-area: report; }
+
+/* ---- Landing View (shown before research starts) ---- */
+.landing {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  overflow-y: auto;
+  background: var(--color-bg-primary);
+}
+
+.landing__heading {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: #ffffff;
+}
+
+.landing__subtitle {
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 500px;
+  line-height: var(--leading-relaxed);
+}
+
+.landing__input-group {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.landing__textarea {
+  width: 100%;
+  min-height: 120px;
+  max-height: 240px;
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-primary);
+  background: var(--surface-1);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  resize: vertical;
+  transition: border-color var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.landing__textarea:focus {
+  border-color: var(--color-director);
+  box-shadow: 0 0 0 3px var(--color-director-dim),
+              0 0 20px var(--color-director-dim);
+}
+
+.landing__textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.landing__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.landing__depth-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.landing__depth-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--space-1);
+}
+
+/* ---- Depth Selector Buttons ---- */
+.depth-btn {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  background: var(--surface-0);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  transition: all var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+}
+
+.depth-btn:hover {
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-default);
+}
+
+.depth-btn.active {
+  color: var(--color-text-primary);
+  background: var(--color-director-dim);
+  border-color: var(--color-director);
+}
+
+/* ---- Agent Card Badges (for landing) ---- */
+.landing__agents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  max-width: 680px;
+}
+
+.landing__agent-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  background: var(--surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.landing__agent-chip__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* ---- Report Tabs ---- */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+}
+
+.tab-btn:hover {
+  color: var(--color-text-secondary);
+}
+
+.tab-btn.active {
+  color: var(--color-text-primary);
+  border-bottom-color: var(--color-director);
+}
+
+.tab-content {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "agents"
+      "topology"
+      "feed"
+      "report";
+    overflow-y: auto;
+  }
+
+  .panel {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 0 var(--space-4);
+  }
+
+  .landing {
+    padding: var(--space-6);
+  }
+
+  .landing__heading {
+    font-size: var(--text-2xl);
+  }
+
+  .landing__controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
