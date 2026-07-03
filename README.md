@@ -2,7 +2,7 @@
 
 NexusResearch is a next-generation, high-performance Python application implementing a **swarm-intelligence architecture** where 12 specialized AI agents dynamically collaborate, debate, cross-reference, and reach consensus to generate deeply researched, fact-verified intelligence reports.
 
-Built with **FastAPI**, **asyncio**, **Google Gemini API**, WebSockets, and an **AMOLED Black & White High-Contrast UI**, NexusResearch turns complex research queries into structured, evidence-backed reports with real-time topology visualization.
+Built with **FastAPI**, **asyncio**, **Google Gemini API**, WebSockets, and an **AMOLED Black and White High-Contrast UI**, NexusResearch turns complex research queries into structured, evidence-backed reports with real-time topology visualization.
 
 ---
 
@@ -10,30 +10,30 @@ Built with **FastAPI**, **asyncio**, **Google Gemini API**, WebSockets, and an *
 
 ```mermaid
 graph TB
-    subgraph WEB_LAYER["Web & Real-time Layer (FastAPI & WebSockets)"]
-        APP[FastAPI Server]
-        WS[WebSocket Event Broadcaster]
+    subgraph WEB_LAYER["Web and Real-time Layer - FastAPI and WebSockets"]
+        APP["FastAPI Server"]
+        WS["WebSocket Event Broadcaster"]
     end
 
-    subgraph SWARM_CORE["Swarm Core Engine (Asyncio)"]
-        PIPE[Pipeline Orchestrator]
-        SCHED[Async DAG Scheduler]
-        LIMIT[Async Rate Limiter]
+    subgraph SWARM_CORE["Swarm Core Engine - Asyncio"]
+        PIPE["Pipeline Orchestrator"]
+        SCHED["Async DAG Scheduler"]
+        LIMIT["Async Rate Limiter"]
     end
 
-    subgraph BLACKBOARD["Shared Blackboard (Async Shared Memory)"]
-        KB[(Knowledge Base)]
-        TQ[Task Queue]
-        DB[Debate Board]
-        CL[Claim Ledger]
+    subgraph BLACKBOARD["Shared Blackboard Memory"]
+        KB[("Knowledge Base")]
+        TQ["Task Queue"]
+        DB["Debate Board"]
+        CL["Claim Ledger"]
     end
 
-    subgraph AGENT_SWARM["12 Async Agents (Command, Research, Analysis, Output)"]
-        AGENTS[Director, Strategist, Scout, Deep Diver, Cross-Ref, Pattern, Devil, Quant, Bias, FactCheck, Synth, Editor]
+    subgraph AGENT_SWARM["12 Async Agents"]
+        AGENTS["Director, Strategist, Scout, Deep Diver, Cross-Ref, Pattern, Devil, Quant, Bias, FactCheck, Synth, Editor"]
     end
 
     subgraph GEMINI_API["Google Gemini API"]
-        GEMINI[gemini-2.0-flash Async Client]
+        GEMINI["gemini-2.0-flash Async Client"]
     end
 
     APP --> PIPE
@@ -42,19 +42,13 @@ graph TB
     SCHED --> LIMIT
     LIMIT --> AGENTS
     AGENTS -->|async stream| GEMINI
-    AGENTS <-->|read/write| BLACKBOARD
+    AGENTS <-->|read and write| BLACKBOARD
 
-    style APP fill:#18181b,stroke:#ffffff,color:#fff
-    style WS fill:#18181b,stroke:#ffffff,color:#fff
-    style PIPE fill:#18181b,stroke:#e4e4e7,color:#fff
-    style SCHED fill:#18181b,stroke:#d4d4d8,color:#fff
-    style LIMIT fill:#18181b,stroke:#a1a1aa,color:#fff
-    style AGENTS fill:#18181b,stroke:#ffffff,color:#fff
-    style GEMINI fill:#18181b,stroke:#e4e4e7,color:#fff
-    style KB fill:#000000,stroke:#52525b,color:#a1a1aa
-    style TQ fill:#000000,stroke:#52525b,color:#a1a1aa
-    style DB fill:#000000,stroke:#52525b,color:#a1a1aa
-    style CL fill:#000000,stroke:#52525b,color:#a1a1aa
+    style WEB_LAYER fill:#18181b,stroke:#a1a1aa,color:#fff
+    style SWARM_CORE fill:#000000,stroke:#ffffff,color:#fff
+    style BLACKBOARD fill:#18181b,stroke:#e4e4e7,color:#fff
+    style AGENT_SWARM fill:#18181b,stroke:#ffffff,color:#fff
+    style GEMINI_API fill:#18181b,stroke:#e4e4e7,color:#fff
 ```
 
 ---
@@ -66,30 +60,30 @@ The 8 research phases execute as an optimized **Async DAG (Directed Acyclic Grap
 ```mermaid
 graph LR
     subgraph WAVE_1["Wave 1"]
-        P1["Phase 1: Decomposition\n(Director)"]
+        P1["Phase 1: Decomposition - Director"]
     end
 
-    subgraph WAVE_2["Wave 2 (Parallel)"]
-        P2a["Phase 2: Reconnaissance\n(Scout)"]
-        P2b["Phase 2: Strategy\n(Strategist)"]
+    subgraph WAVE_2["Wave 2 - Parallel"]
+        P2a["Phase 2: Reconnaissance - Scout"]
+        P2b["Phase 2: Strategy - Strategist"]
     end
 
-    subgraph WAVE_3["Wave 3 (Streaming Overlap)"]
-        P3["Phase 3: Deep Research\n(Deep Diver + Cross-Ref)"]
-        P4["Phase 4: Analysis\n(Pattern + Quantifier)"]
+    subgraph WAVE_3["Wave 3 - Streaming Overlap"]
+        P3["Phase 3: Deep Research - Deep Diver and Cross-Ref"]
+        P4["Phase 4: Analysis - Pattern and Quantifier"]
     end
 
-    subgraph WAVE_4["Wave 4 (Parallel)"]
-        P5["Phase 5: Debate\n(Devil's Advocate + Bias)"]
+    subgraph WAVE_4["Wave 4 - Parallel"]
+        P5["Phase 5: Debate - Devil Advocate and Bias"]
     end
 
-    subgraph WAVE_5["Wave 5 (Streaming Overlap)"]
-        P6["Phase 6: Verification\n(Fact Checker)"]
-        P7["Phase 7: Synthesis\n(Synthesizer)"]
+    subgraph WAVE_5["Wave 5 - Streaming Overlap"]
+        P6["Phase 6: Verification - Fact Checker"]
+        P7["Phase 7: Synthesis - Synthesizer"]
     end
 
     subgraph WAVE_6["Wave 6"]
-        P8["Phase 8: Polish\n(Visualizer + Editor)"]
+        P8["Phase 8: Polish - Visualizer and Editor"]
     end
 
     P1 --> P2a
@@ -127,7 +121,7 @@ sequenceDiagram
     participant DA as Devil's Advocate
     participant CE as Consensus Engine
 
-    Agent->>BB: Posts finding / claim (confidence: 70%)
+    Agent->>BB: Posts finding or claim (confidence: 70%)
     BB->>DA: Notifies of claim
     DA->>BB: Posts challenge with counter-evidence
     BB->>Agent: Notifies of challenge
