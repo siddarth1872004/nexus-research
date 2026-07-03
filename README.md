@@ -1,12 +1,12 @@
-# NexusResearch — Python Multi-Agent Swarm Platform
+# NexusResearch -- Python Multi-Agent Swarm Platform
 
 NexusResearch is a next-generation, high-performance Python application implementing a **swarm-intelligence architecture** where 12 specialized AI agents dynamically collaborate, debate, cross-reference, and reach consensus to generate deeply researched, fact-verified intelligence reports.
 
-Built with **FastAPI**, **`asyncio`**, **Google Gemini API**, WebSockets, and an **AMOLED Black & White High-Contrast UI**, NexusResearch turns complex research queries into structured, evidence-backed reports with real-time topology visualization.
+Built with **FastAPI**, **asyncio**, **Google Gemini API**, WebSockets, and an **AMOLED Black & White High-Contrast UI**, NexusResearch turns complex research queries into structured, evidence-backed reports with real-time topology visualization.
 
 ---
 
-## 🏛️ System Architecture Topology
+## System Architecture Topology
 
 ```mermaid
 graph TB
@@ -59,7 +59,7 @@ graph TB
 
 ---
 
-## ⚡ DAG Parallel Pipeline & Streaming Overlap
+## DAG Parallel Pipeline and Streaming Overlap
 
 The 8 research phases execute as an optimized **Async DAG (Directed Acyclic Graph)** with **streaming overlap**, cutting total execution wall-clock time by 30-40%:
 
@@ -116,7 +116,7 @@ graph LR
 
 ---
 
-## ⚔️ Adversarial Debate Protocol
+## Adversarial Debate Protocol
 
 Disputed claims automatically enter a structured multi-round debate resolved by a weighted multi-factor consensus engine:
 
@@ -142,69 +142,69 @@ $$\text{Defense Score} = 0.35(\text{Evidence Strength}) + 0.30(\text{Coherence})
 
 ---
 
-## 🤖 The 12 AI Agents
+## The 12 AI Agents
 
-| Tier | Agent | Icon | Role & System Prompt Focus |
+| Tier | Agent | Icon | Role and System Prompt Focus |
 |------|-------|------|---------------------------|
-| **Command** | **Director** | `[DIR]` | Decomposes raw query into subtasks with dependencies and priority levels. |
-| **Command** | **Strategist** | `[STR]` | Monitors research gaps mid-session and dynamically adapts strategy. |
-| **Research** | **Scout** | `[SCT]` | Broad reconnaissance across all subtasks for rapid surface coverage. |
-| **Research** | **Deep Diver** | `[DDV]` | Focused, granular investigation into targeted sub-topics. |
-| **Research** | **Cross-Referencer** | `[CRF]` | Identifies cross-cutting connections and contradictions between subtasks. |
-| **Analysis** | **Pattern Analyst** | `[PAT]` | Discovers recurring trends, anomalies, and statistical patterns. |
-| **Analysis** | **Devil's Advocate** | `[DVA]` | Challenges findings with critical counter-arguments and alternative explanations. |
-| **Analysis** | **Quantifier** | `[QNT]` | Extracts, validates, and contextualizes numerical data and statistics. |
-| **Analysis** | **Bias Detector** | `[BIA]` | Scans research for cognitive biases, framing effects, and logical fallacies. |
-| **Output** | **Fact Checker** | `[FCK]` | Final verification pass; assigns confidence scores (0-100%) to all claims. |
-| **Output** | **Synthesizer** | `[SYN]` | Compiles verified evidence into an authoritative research report. |
-| **Output** | **Visualizer** | `[VIZ]` | Generates structured summary tables and key statistics matrices. |
-| **Output** | **Editor** | `[EDI]` | Final polish for narrative flow, clarity, style, and coherence. |
+| **Command** | **Director** | [DIR] | Decomposes raw query into subtasks with dependencies and priority levels. |
+| **Command** | **Strategist** | [STR] | Monitors research gaps mid-session and dynamically adapts strategy. |
+| **Research** | **Scout** | [SCT] | Broad reconnaissance across all subtasks for rapid surface coverage. |
+| **Research** | **Deep Diver** | [DDV] | Focused, granular investigation into targeted sub-topics. |
+| **Research** | **Cross-Referencer** | [CRF] | Identifies cross-cutting connections and contradictions between subtasks. |
+| **Analysis** | **Pattern Analyst** | [PAT] | Discovers recurring trends, anomalies, and statistical patterns. |
+| **Analysis** | **Devil's Advocate** | [DVA] | Challenges findings with critical counter-arguments and alternative explanations. |
+| **Analysis** | **Quantifier** | [QNT] | Extracts, validates, and contextualizes numerical data and statistics. |
+| **Analysis** | **Bias Detector** | [BIA] | Scans research for cognitive biases, framing effects, and logical fallacies. |
+| **Output** | **Fact Checker** | [FCK] | Final verification pass; assigns confidence scores (0-100%) to all claims. |
+| **Output** | **Synthesizer** | [SYN] | Compiles verified evidence into an authoritative research report. |
+| **Output** | **Visualizer** | [VIZ] | Generates structured summary tables and key statistics matrices. |
+| **Output** | **Editor** | [EDI] | Final polish for narrative flow, clarity, style, and coherence. |
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
 
 ```
 nexus-research/
-├── pyproject.toml              # Python package metadata & dependencies
-├── requirements.txt            # FastAPI, Uvicorn, Pydantic, aiohttp, WebSockets
-├── main.py                     # CLI & Web Server entry point
-├── nexus/
-│   ├── __init__.py
-│   ├── config.py               # Pydantic BaseSettings & environment config
-│   ├── api/
-│   │   └── gemini_client.py    # Async Gemini client with retries & rate limiting
-│   ├── core/
-│   │   ├── blackboard.py       # Thread-safe async shared memory
-│   │   ├── task_queue.py       # Priority queue with dependency resolution
-│   │   ├── claim_ledger.py     # Verified claims repository
-│   │   ├── debate_engine.py    # Adversarial debate protocol & scoring
-│   │   ├── rate_limiter.py     # Semaphore + token bucket rate limiter
-│   │   ├── scheduler.py        # Async DAG wave scheduler
-│   │   └── pipeline.py         # 8-phase research pipeline orchestrator
-│   ├── agents/
-│   │   ├── base_agent.py       # Base Agent class with sliding memory
-│   │   ├── registry.py         # Agent factory & depth manager
-│   │   └── prompts.py          # System prompts for all 12 agents
-│   └── web/
-│       ├── app.py              # FastAPI server & REST API
-│       ├── websocket.py        # Real-time WebSocket connection manager
-│       └── static/             # AMOLED Black & White Web UI
-│           ├── index.html
-│           ├── css/            # AMOLED dark tokens & layout
-│           └── js/             # WebSocket client & live topology renderer
-└── README.md
+|-- pyproject.toml              # Python package metadata & dependencies
+|-- requirements.txt            # FastAPI, Uvicorn, Pydantic, aiohttp, WebSockets
+|-- main.py                     # CLI & Web Server entry point
+|-- nexus/
+|   |-- __init__.py
+|   |-- config.py               # Pydantic BaseSettings & environment config
+|   |-- api/
+|   |   `-- gemini_client.py    # Async Gemini client with retries & rate limiting
+|   |-- core/
+|   |   |-- blackboard.py       # Thread-safe async shared memory
+|   |   |-- task_queue.py       # Priority queue with dependency resolution
+|   |   |-- claim_ledger.py     # Verified claims repository
+|   |   |-- debate_engine.py    # Adversarial debate protocol & scoring
+|   |   |-- rate_limiter.py     # Semaphore + token bucket rate limiter
+|   |   |-- scheduler.py        # Async DAG wave scheduler
+|   |   `-- pipeline.py         # 8-phase research pipeline orchestrator
+|   |-- agents/
+|   |   |-- base_agent.py       # Base Agent class with sliding memory
+|   |   |-- registry.py         # Agent factory & depth manager
+|   |   `-- prompts.py          # System prompts for all 12 agents
+|   `-- web/
+|       |-- app.py              # FastAPI server & REST API
+|       |-- websocket.py        # Real-time WebSocket connection manager
+|       `-- static/             # AMOLED Black & White Web UI
+|           |-- index.html
+|           |-- css/            # AMOLED dark tokens & layout
+|           `-- js/             # WebSocket client & live topology renderer
+`-- README.md
 ```
 
 ---
 
-## 💻 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.10 or higher.
 - A **Google Gemini API Key** (Free tier supported).
 
-### Installation & Server Run
+### Installation and Server Run
 
 1. **Clone the Repository**:
    ```bash
@@ -233,6 +233,6 @@ nexus-research/
 
 ---
 
-## 📜 License
+## License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
