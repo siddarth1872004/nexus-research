@@ -1,0 +1,12 @@
+/* ============================================================
+   NexusResearch -- Visualization Styles (Canvas Topology & Heatmap)
+   ============================================================ */
+
+.topology { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.topology__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.topology__tooltip {
+  position: absolute; padding: 6px 10px; background: #18181b; border: 1px solid var(--color-border-default);
+  border-radius: 6px; font-size: 11px; color: #ffffff; pointer-events: none; opacity: 0; transition: opacity 120ms;
+}
+.topology__tooltip.visible { opacity: 1; }

@@ -1,0 +1,53 @@
+/* ============================================================
+   NexusResearch -- Design Tokens (AMOLED Black & White)
+   ============================================================ */
+
+:root {
+  --color-bg-primary:      #000000;
+  --color-bg-secondary:    #09090b;
+  --color-bg-tertiary:     #121215;
+  --color-bg-elevated:     #18181b;
+
+  --color-text-primary:    #ffffff;
+  --color-text-secondary:  #a1a1aa;
+  --color-text-muted:      #71717a;
+
+  --color-border-subtle:   rgba(255, 255, 255, 0.08);
+  --color-border-default:  rgba(255, 255, 255, 0.16);
+  --color-border-strong:   rgba(255, 255, 255, 0.32);
+
+  --surface-0:             #000000;
+  --surface-1:             #09090b;
+  --surface-2:             #121215;
+  --surface-3:             #18181b;
+  --surface-overlay:       rgba(0, 0, 0, 0.90);
+
+  --font-body:             system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading:          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:             ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --text-xs:               0.6875rem;
+  --text-sm:               0.75rem;
+  --text-base:             0.8125rem;
+  --text-md:               0.875rem;
+  --text-lg:               1rem;
+  --text-xl:               1.25rem;
+  --text-2xl:              1.5rem;
+  --text-3xl:              2rem;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-12: 48px;
+
+  --radius-xs: 2px; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-full: 9999px;
+
+  --z-sticky: 200; --z-overlay: 300; --z-modal: 400; --z-toast: 500;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  height: 100vh;
+}

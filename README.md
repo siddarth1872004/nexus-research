@@ -1,85 +1,56 @@
-# NexusResearch — Multi-Agent Swarm Research Platform
+# NexusResearch — Python Multi-Agent Swarm Platform
 
-NexusResearch is a state-of-the-art, high-performance web application implementing a **swarm-intelligence architecture** where 12 specialized AI agents dynamically collaborate, debate, cross-reference, and reach consensus to generate deeply researched, fact-verified intelligence reports.
+NexusResearch is a next-generation, high-performance Python application implementing a **swarm-intelligence architecture** where 12 specialized AI agents dynamically collaborate, debate, cross-reference, and reach consensus to generate deeply researched, fact-verified intelligence reports.
 
-Built with an **AMOLED Black & White High-Contrast UI**, system-native typography, Web Worker offloading, and a DAG-based parallel execution pipeline, NexusResearch turns complex research queries into structured, evidence-backed reports with real-time topology visualization.
+Built with **FastAPI**, **`asyncio`**, **Google Gemini API**, WebSockets, and an **AMOLED Black & White High-Contrast UI**, NexusResearch turns complex research queries into structured, evidence-backed reports with real-time topology visualization.
 
 ---
 
-## 🏛️ Architecture Overview
-
-NexusResearch operates on a **Blackboard Architecture** combined with an **Adversarial Debate Protocol** and **DAG Parallel Scheduling**.
-
-### System Architecture Topology
+## 🏛️ System Architecture Topology
 
 ```mermaid
 graph TB
-    subgraph COMMAND_TIER["Command Tier"]
-        DIR[Director]
-        STR[Strategist]
+    subgraph WEB_LAYER["Web & Real-time Layer (FastAPI & WebSockets)"]
+        APP[FastAPI Server]
+        WS[WebSocket Event Broadcaster]
     end
 
-    subgraph BLACKBOARD["Shared Blackboard (Asynchronous Shared Memory)"]
+    subgraph SWARM_CORE["Swarm Core Engine (Asyncio)"]
+        PIPE[Pipeline Orchestrator]
+        SCHED[Async DAG Scheduler]
+        LIMIT[Async Rate Limiter]
+    end
+
+    subgraph BLACKBOARD["Shared Blackboard (Async Shared Memory)"]
         KB[(Knowledge Base)]
         TQ[Task Queue]
         DB[Debate Board]
         CL[Claim Ledger]
     end
 
-    subgraph RESEARCH_TIER["Research Tier"]
-        SCT[Scout]
-        DDV[Deep Diver]
-        CRF[Cross-Referencer]
+    subgraph AGENT_SWARM["12 Async Agents (Command, Research, Analysis, Output)"]
+        AGENTS[Director, Strategist, Scout, Deep Diver, Cross-Ref, Pattern, Devil, Quant, Bias, FactCheck, Synth, Editor]
     end
 
-    subgraph ANALYSIS_TIER["Analysis Tier"]
-        PAT[Pattern Analyst]
-        DVA[Devil's Advocate]
-        QNT[Quantifier]
-        BIA[Bias Detector]
+    subgraph GEMINI_API["Google Gemini API"]
+        GEMINI[gemini-2.0-flash Async Client]
     end
 
-    subgraph OUTPUT_TIER["Output Tier"]
-        FCK[Fact Checker]
-        SYN[Synthesizer]
-        VIZ[Visualizer]
-        EDI[Editor]
-    end
+    APP --> PIPE
+    WS <-->|live events| PIPE
+    PIPE --> SCHED
+    SCHED --> LIMIT
+    LIMIT --> AGENTS
+    AGENTS -->|async stream| GEMINI
+    AGENTS <-->|read/write| BLACKBOARD
 
-    DIR -->|decompose| TQ
-    STR -->|strategy| TQ
-    TQ -->|assign| SCT
-    TQ -->|assign| DDV
-    SCT -->|raw data| KB
-    DDV -->|deep data| KB
-    CRF -->|links| KB
-    KB -->|feed| PAT
-    KB -->|feed| DVA
-    KB -->|feed| QNT
-    KB -->|feed| BIA
-    PAT -->|insights| CL
-    DVA -->|challenges| DB
-    QNT -->|metrics| CL
-    BIA -->|flags| DB
-    DB -->|resolved| CL
-    CL -->|verified| FCK
-    FCK -->|approved| SYN
-    SYN --> EDI
-    EDI -->|final| VIZ
-
-    style DIR fill:#18181b,stroke:#ffffff,color:#fff
-    style STR fill:#18181b,stroke:#e4e4e7,color:#fff
-    style SCT fill:#18181b,stroke:#d4d4d8,color:#fff
-    style DDV fill:#18181b,stroke:#d4d4d8,color:#fff
-    style CRF fill:#18181b,stroke:#a1a1aa,color:#fff
-    style PAT fill:#18181b,stroke:#ffffff,color:#fff
-    style DVA fill:#18181b,stroke:#f4f4f5,color:#fff
-    style QNT fill:#18181b,stroke:#e4e4e7,color:#fff
-    style BIA fill:#18181b,stroke:#d4d4d8,color:#fff
-    style FCK fill:#18181b,stroke:#ffffff,color:#fff
-    style SYN fill:#18181b,stroke:#e4e4e7,color:#fff
-    style VIZ fill:#18181b,stroke:#d4d4d8,color:#fff
-    style EDI fill:#18181b,stroke:#a1a1aa,color:#fff
+    style APP fill:#18181b,stroke:#ffffff,color:#fff
+    style WS fill:#18181b,stroke:#ffffff,color:#fff
+    style PIPE fill:#18181b,stroke:#e4e4e7,color:#fff
+    style SCHED fill:#18181b,stroke:#d4d4d8,color:#fff
+    style LIMIT fill:#18181b,stroke:#a1a1aa,color:#fff
+    style AGENTS fill:#18181b,stroke:#ffffff,color:#fff
+    style GEMINI fill:#18181b,stroke:#e4e4e7,color:#fff
     style KB fill:#000000,stroke:#52525b,color:#a1a1aa
     style TQ fill:#000000,stroke:#52525b,color:#a1a1aa
     style DB fill:#000000,stroke:#52525b,color:#a1a1aa
@@ -90,7 +61,7 @@ graph TB
 
 ## ⚡ DAG Parallel Pipeline & Streaming Overlap
 
-The 8 research phases execute as an optimized **Directed Acyclic Graph (DAG)** with **streaming overlap**, cutting total execution wall-clock time by 30-40%:
+The 8 research phases execute as an optimized **Async DAG (Directed Acyclic Graph)** with **streaming overlap**, cutting total execution wall-clock time by 30-40%:
 
 ```mermaid
 graph LR
@@ -154,7 +125,7 @@ sequenceDiagram
     participant Agent as Research / Analysis Agent
     participant BB as Shared Blackboard
     participant DA as Devil's Advocate
-    participant CE as Consensus Engine (Worker)
+    participant CE as Consensus Engine
 
     Agent->>BB: Posts finding / claim (confidence: 70%)
     BB->>DA: Notifies of claim
@@ -191,70 +162,37 @@ $$\text{Defense Score} = 0.35(\text{Evidence Strength}) + 0.30(\text{Coherence})
 
 ---
 
-## 🚀 Key Features & Performance Optimizations
-
-### 1. High-Performance Architecture
-- **Semaphore + Token-Bucket Rate Limiter**: Enforces strict API concurrency limits with priority queues (Command Tier > Research Tier > Analysis Tier).
-- **Hash Deduplication Cache**: Reuses identical prompt responses and deduplicates concurrent in-flight requests.
-- **Web Worker Offloading**: Runs Markdown-to-HTML parsing and Debate Consensus Scoring in background Web Workers to guarantee 60fps UI smoothness.
-- **rAF DOM Batching & Object Pooling**: Recycles canvas objects and batches state updates to prevent layout thrashing.
-
-### 2. State-of-the-Art Mission Control UI
-- **AMOLED Black & White Aesthetic**: Pure `#000000` AMOLED background, crisp high-contrast text, zero emojis, and native system typography (`system-ui`).
-- **Interactive Topology Graph**: 30fps canvas force-directed network showing active agent nodes, directional flow dashes, and hover tooltips.
-- **Virtualized Activity Feed**: Timestamped, filterable scrolling log handling 200+ events effortlessly.
-- **Confidence Heatmap & Debate Thread Viewer**: Drill down into verified claims, argument rounds, and confidence bars.
-
----
-
 ## 🛠️ Project Structure
 
 ```
 nexus-research/
-├── index.html              # Mission Control HTML structure
-├── css/
-│   ├── tokens.css          # AMOLED black & white design system tokens
-│   ├── reset.css           # Modern CSS reset
-│   ├── layout.css          # Mission Control grid system
-│   ├── components.css      # Agent cards, buttons, feeds, modals
-│   ├── visualizations.css  # Topology overlay & heatmap grid
-│   └── animations.css      # GPU-accelerated keyframe definitions
-├── js/
-│   ├── main.js             # Application entry point & state binding
-│   ├── state.js            # Reactive Pub/Sub state store
+├── pyproject.toml              # Python package metadata & dependencies
+├── requirements.txt            # FastAPI, Uvicorn, Pydantic, aiohttp, WebSockets
+├── main.py                     # CLI & Web Server entry point
+├── nexus/
+│   ├── __init__.py
+│   ├── config.py               # Pydantic BaseSettings & environment config
 │   ├── api/
-│   │   └── gemini.js       # Gemini API client with SSE streaming & retries
+│   │   └── gemini_client.py    # Async Gemini client with retries & rate limiting
 │   ├── core/
-│   │   ├── Blackboard.js   # Shared memory system (KB, TaskQueue, Debate, Claims)
-│   │   ├── TaskQueue.js    # Priority queue with dependency resolution
-│   │   ├── ClaimLedger.js  # Verified claims repository
-│   │   ├── DebateEngine.js # Adversarial debate protocol & scoring
-│   │   ├── Scheduler.js    # DAG wave execution engine
-│   │   ├── RateLimiter.js  # Semaphore + token-bucket concurrency manager
-│   │   ├── RequestCache.js # Hash-based dedup cache
-│   │   └── Pipeline.js     # 8-phase research pipeline orchestrator
+│   │   ├── blackboard.py       # Thread-safe async shared memory
+│   │   ├── task_queue.py       # Priority queue with dependency resolution
+│   │   ├── claim_ledger.py     # Verified claims repository
+│   │   ├── debate_engine.py    # Adversarial debate protocol & scoring
+│   │   ├── rate_limiter.py     # Semaphore + token bucket rate limiter
+│   │   ├── scheduler.py        # Async DAG wave scheduler
+│   │   └── pipeline.py         # 8-phase research pipeline orchestrator
 │   ├── agents/
-│   │   ├── Agent.js        # Base Agent class
-│   │   ├── AgentRegistry.js# Agent factory & depth lifecycle manager
-│   │   └── prompts.js      # System prompts for all 12 agents
-│   ├── ui/
-│   │   ├── renderer.js     # DOM factory & rAF scheduler
-│   │   ├── AgentCards.js   # Agent card grid component
-│   │   ├── Topology.js     # Canvas force-directed graph renderer
-│   │   ├── ActivityFeed.js # Real-time virtualized feed component
-│   │   ├── ReportView.js   # Markdown report viewer & export manager
-│   │   ├── ProgressBar.js  # 8-phase progress bar component
-│   │   ├── DebateView.js   # Interactive debate thread viewer
-│   │   ├── Heatmap.js      # Confidence heatmap grid component
-│   │   └── Modal.js        # Settings & history modal system
-│   ├── workers/
-│   │   ├── markdown.worker.js  # Background Web Worker for markdown parsing
-│   │   └── consensus.worker.js # Background Web Worker for debate scoring
-│   └── utils/
-│       ├── helpers.js      # Formatting, debounce, throttle, hashing
-│       ├── storage.js      # localStorage wrapper
-│       ├── markdown.js     # Main-thread markdown parser fallback
-│       └── ObjectPool.js   # Reusable object pool
+│   │   ├── base_agent.py       # Base Agent class with sliding memory
+│   │   ├── registry.py         # Agent factory & depth manager
+│   │   └── prompts.py          # System prompts for all 12 agents
+│   └── web/
+│       ├── app.py              # FastAPI server & REST API
+│       ├── websocket.py        # Real-time WebSocket connection manager
+│       └── static/             # AMOLED Black & White Web UI
+│           ├── index.html
+│           ├── css/            # AMOLED dark tokens & layout
+│           └── js/             # WebSocket client & live topology renderer
 └── README.md
 ```
 
@@ -263,10 +201,10 @@ nexus-research/
 ## 💻 Quick Start
 
 ### Prerequisites
-- Any modern web browser (Chrome, Edge, Firefox, Safari).
+- Python 3.10 or higher.
 - A **Google Gemini API Key** (Free tier supported).
 
-### Local Running
+### Installation & Server Run
 
 1. **Clone the Repository**:
    ```bash
@@ -274,24 +212,24 @@ nexus-research/
    cd nexus-research
    ```
 
-2. **Serve the Application**:
-   Since the app uses native ES Modules and Web Workers, it should be served via HTTP:
+2. **Install Dependencies**:
    ```bash
-   npx serve -l 3000
-   ```
-   *or using Python:*
-   ```bash
-   python -m http.server 3000
+   pip install -r requirements.txt
    ```
 
-3. **Open in Browser**:
-   Navigate to `http://localhost:3000`.
+3. **Start the FastAPI Server**:
+   ```bash
+   python main.py --server --port 8000
+   ```
 
-4. **Configure API Key**:
-   Click the **Settings** gear icon in the top right, enter your Gemini API Key, and click **Validate & Save**.
+4. **Open Web UI**:
+   Navigate to `http://localhost:8000` in your browser.
 
-5. **Start Researching**:
-   Enter your research topic (e.g., *"What are the latest breakthroughs in solid-state battery technology?"*), select research depth (**Quick**, **Standard**, **Deep**, or **Exhaustive**), and click **Start Research**!
+5. **CLI Execution Mode**:
+   You can also run research queries directly from the terminal:
+   ```bash
+   python main.py --query "What are the latest advances in quantum computing?" --depth standard
+   ```
 
 ---
 

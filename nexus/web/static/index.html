@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusResearch -- Python Multi-Agent Swarm</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/visualizations.css">
+
+  <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header__brand">
+        <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" fill="#ffffff" opacity="0.1"/>
+          <path d="M50 20L25 35l25 15 25-15-25-15z" fill="#ffffff"/>
+          <path d="M25 65l25 15 25-15" stroke="#ffffff" stroke-width="3" fill="none"/>
+        </svg>
+        <span class="header__title">NexusResearch</span>
+      </div>
+      <div class="header__actions">
+        <button class="btn btn--ghost" id="new-btn" style="display: none;">New</button>
+        <button class="btn btn--icon" id="settings-btn" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <!-- Progress Strip -->
+    <div class="progress-strip" id="progress-strip">
+      <div class="progress-segment" id="phase-0"><span class="progress-segment__label">Decomposition</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-1"><span class="progress-segment__label">Reconnaissance</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-2"><span class="progress-segment__label">Deep Research</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-3"><span class="progress-segment__label">Analysis</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-4"><span class="progress-segment__label">Debate</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-5"><span class="progress-segment__label">Verification</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-6"><span class="progress-segment__label">Synthesis</span><div class="progress-segment__bar"></div></div>
+      <div class="progress-segment" id="phase-7"><span class="progress-segment__label">Polish</span><div class="progress-segment__bar"></div></div>
+    </div>
+
+    <!-- Landing View -->
+    <div class="landing" id="landing-view">
+      <h1 class="landing__heading">Multi-Agent Research Intelligence</h1>
+      <p class="landing__subtitle">Python-powered swarm platform orchestrating 12 AI agents via FastAPI, asyncio, and WebSockets.</p>
+
+      <div class="landing__input-group">
+        <textarea class="landing__textarea" id="research-input" placeholder="Enter your research query..." rows="4"></textarea>
+        <div class="landing__controls">
+          <div class="landing__depth-group">
+            <button class="depth-btn" data-depth="quick">Quick</button>
+            <button class="depth-btn active" data-depth="standard">Standard</button>
+            <button class="depth-btn" data-depth="deep">Deep</button>
+            <button class="depth-btn" data-depth="exhaustive">Exhaustive</button>
+          </div>
+          <button class="btn btn--primary" id="start-btn">Start Research</button>
+        </div>
+      </div>
+
+      <div class="landing__agents">
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Director</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Strategist</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Scout</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Deep Diver</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Cross-Ref</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Pattern Analyst</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Devils Advocate</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Quantifier</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Bias Detector</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Fact Checker</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Synthesizer</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Visualizer</div>
+        <div class="landing__agent-chip"><span class="landing__agent-chip__dot"></span> Editor</div>
+      </div>
+    </div>
+
+    <!-- Research View -->
+    <div class="main" id="research-view" style="display: none;">
+      <div class="panel panel--topology">
+        <div class="panel__header"><span class="panel__title">Agent Topology</span><span class="panel__badge">Live</span></div>
+        <div class="panel__body" id="topology-body"></div>
+      </div>
+      <div class="panel panel--agents">
+        <div class="panel__header"><span class="panel__title">Agents</span><span class="panel__badge">12</span></div>
+        <div class="panel__body" id="agents-body"></div>
+      </div>
+      <div class="panel panel--feed">
+        <div class="panel__header"><span class="panel__title">Activity Feed</span><span class="panel__badge">WebSocket</span></div>
+        <div class="panel__body" id="feed-body"><div class="feed__list" id="feed-list"></div></div>
+      </div>
+      <div class="panel panel--report">
+        <div class="panel__header"><span class="panel__title">Research Output</span><span class="panel__badge">Report</span></div>
+        <div class="panel__body" id="report-body"><div class="report" id="report-content">Report will render here...</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3 class="modal__title">Settings</h3>
+      <div class="form-group">
+        <label>Gemini API Key</label>
+        <input class="form-input" id="api-key-input" type="password" placeholder="Enter Gemini API key...">
+      </div>
+      <button class="btn btn--primary" id="save-settings-btn">Save Settings</button>
+    </div>
+  </div>
+</body>
+</html>
