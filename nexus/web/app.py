@@ -41,6 +41,10 @@ async def pipeline_event_handler(event_type: str, data: dict):
 
 pipeline.set_event_callback(pipeline_event_handler)
 
+@app.get("/health")
+async def health():
+    return {"status": "ok", "service": "NexusResearch API"}
+
 
 class ResearchRequest(BaseModel):
     query: str
